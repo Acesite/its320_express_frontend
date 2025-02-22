@@ -1,0 +1,32 @@
+<div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 mt-8 auto-rows-fr">
+  @for (quote of quotes; track quote) {
+    <div 
+      class="relative bg-white shadow-md rounded-xl p-6 border border-gray-200 hover:shadow-lg transition-all duration-300 ease-in-out min-h-[200px]"
+      [class.border-yellow-400]="isSpecialAuthor(quote.author)"
+      [class.bg-yellow-50]="isSpecialAuthor(quote.author)"
+    >
+      <!-- Author Info -->
+      <div class="flex items-center space-x-4 mb-3">
+        <div 
+          class="h-12 w-12 bg-gradient-to-r from-indigo-500 to-purple-500 text-white flex items-center justify-center rounded-full font-bold text-lg shadow-md"
+        >
+          {{ quote.author[0] }}
+        </div>
+        <div>
+          <h3 class="text-lg font-semibold text-gray-900">{{ quote.author }}</h3>
+          <p class="text-xs text-gray-500">{{ quote.published }}</p>
+        </div>
+      </div>
+
+      <!-- Quote Content -->
+      <blockquote class="italic text-md leading-relaxed text-gray-700">
+        “{{ quote.quote }}”
+      </blockquote>
+
+      <!-- Quote Title -->
+      <div class="mt-4 text-right">
+        <span class="text-sm font-medium text-blue-600">— {{ quote.title }}</span>
+      </div>
+    </div>
+  }
+</div>
