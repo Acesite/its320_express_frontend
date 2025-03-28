@@ -21,7 +21,7 @@ export class DisplayQuotesComponent implements OnInit {
   quotes: Quotes[] = [];
   
   // 🔹 List of special authors
-  specialAuthors: string[] = [ 'Steve Jobs','Theodore Roosevelt' ]; // Add more names if needed
+  specialAuthors: string[] = [  'Mahatma Gandhi' ]; // Add more names if needed
 
   constructor(private newQuotes: QuotesService) {}
 
