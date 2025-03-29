@@ -5,11 +5,12 @@ import { ProjectsComponent } from './components/projects/projects.component';
 import { ContactsComponent } from './components/contacts/contacts.component';
 import { FooterComponent } from './components/footer/footer.component';
 import { DisplayQuotesComponent } from './displayquotes/displayquotes.component';
+import { TodoListComponent } from './todo-list/todo-list.component';
 
 @Component({
   selector: 'app-root',
   standalone: true,
-  imports: [HeaderComponent, AboutComponent, ProjectsComponent, ContactsComponent, FooterComponent, DisplayQuotesComponent],
+  imports: [HeaderComponent, AboutComponent, ProjectsComponent, ContactsComponent, FooterComponent, DisplayQuotesComponent, TodoListComponent],
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.css']
 })
