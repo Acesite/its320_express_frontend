@@ -1,16 +1,16 @@
 <div class="h-dvh grid place-items-center bg-gray-100 p-4">
     <form method="post" class="flex flex-col gap-4 shadow-xl px-10 py-8 border border-gray-300 bg-white rounded-lg w-80">
-        <label for="todoitem" class="text-lg font-semibold text-gray-700">Add to-do-list</label>
-        
-        <input [formControl]="item" type="text" name="todoitem" class="border rounded-md px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-400" placeholder="Enter task...">
-        
-        <button class="bg-blue-500 text-white px-4 py-2 rounded-md hover:bg-blue-600 transition duration-200" type="button" (click)="pushToList()">Add</button>
+      <label for="todoitem" class="text-lg font-semibold text-gray-700">Add to-do-list</label>
+  
+      <input [formControl]="item" type="text" name="todoitem" class="border rounded-md px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-400" placeholder="Enter task...">
+  
+      <button class="bg-blue-500 text-white px-4 py-2 rounded-md hover:bg-blue-600 transition duration-200" type="button" (click)="pushToList()">Add</button>
     </form>
-    
+  
     <ol class="w-80 max-h-64 bg-white shadow-md rounded-lg mt-4 overflow-auto p-4 border border-gray-300">
-        <p class="text-lg font-semibold text-gray-700">List</p>
-        @for (item of list; track item) {
-        <li key={item} class="border-b last:border-none py-2 px-2 text-gray-800">{{item}}</li>
-        }
+      <p class="text-lg font-semibold text-gray-700">List</p>
+      @for (todo of list; track todo._id) {
+        <li key={todo._id} class="border-b last:border-none py-2 px-2 text-gray-800">{{todo.task}}</li>
+      }
     </ol>
-</div>
+  </div>
