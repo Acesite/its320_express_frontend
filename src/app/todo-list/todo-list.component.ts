@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormControl, ReactiveFormsModule } from '@angular/forms';
-import { TodoService, Todo } from '../services/todo.service'; // Import Todo interface
+import { TodoService, Todo } from '../services/todo.service';
 
 @Component({
   selector: 'todo-list',
@@ -11,8 +11,11 @@ import { TodoService, Todo } from '../services/todo.service'; // Import Todo int
 })
 export class TodoListComponent implements OnInit {
 
-  item = new FormControl("");
-  list: Todo[] = []; // Update the type to Todo[]
+  item = new FormControl('');
+  list: Todo[] = [];
+
+  editMode = false;
+  selectedTodoId: string | null = null;
 
   constructor(private todoService: TodoService) {}
 
@@ -27,26 +30,56 @@ export class TodoListComponent implements OnInit {
       },
       error: (error) => {
         console.error('Error fetching todos:', error);
-        // Optionally display an error message to the user
       }
     });
   }
 
   pushToList() {
     const task = this.item.value;
-    if (task) {
+    if (!task) return;
+
+    if (this.editMode && this.selectedTodoId) {
+      // Update
+      this.todoService.updateTodo(this.selectedTodoId, { task }).subscribe({
+        next: () => {
+          this.editMode = false;
+          this.selectedTodoId = null;
+          this.item.setValue('');
+          this.fetchTodos();
+        },
+        error: (error) => {
+          console.error('Error updating todo:', error);
+        }
+      });
+    } else {
+      // Create
       const newTodo: Todo = { task };
       this.todoService.createTodo(newTodo).subscribe({
-        next: (response) => {
-          console.log('Todo created:', response);
-          this.item.setValue("");
-          this.fetchTodos(); // Refresh the list after adding
+        next: () => {
+          this.item.setValue('');
+          this.fetchTodos();
         },
         error: (error) => {
           console.error('Error creating todo:', error);
-          // Optionally display an error message to the user
         }
       });
     }
+  }
+
+  editTodo(todo: Todo) {
+    this.item.setValue(todo.task);
+    this.selectedTodoId = todo._id!;
+    this.editMode = true;
+  }
+
+  deleteTodo(id: string) {
+    this.todoService.deleteTodo(id).subscribe({
+      next: () => {
+        this.fetchTodos();
+      },
+      error: (error) => {
+        console.error('Error deleting todo:', error);
+      }
+    });
   }
 }
