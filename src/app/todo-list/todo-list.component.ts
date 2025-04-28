@@ -32,6 +32,10 @@ export class TodoListComponent implements OnInit {
   editMode = false;
   selectedTodoId: string | null = null;
 
+  // Delete confirmation properties
+  showDeleteConfirm = false;
+  todoToDeleteId: string | null = null;
+
   constructor(
     private todoService: TodoService,
     @Inject(PLATFORM_ID) private platformId: any // Inject PLATFORM_ID to check platform
@@ -131,10 +135,7 @@ export class TodoListComponent implements OnInit {
         // Update
         this.todoService.updateTodo(this.selectedTodoId, { task, day: selectedDay }).subscribe({
           next: () => {
-            this.editMode = false;
-            this.selectedTodoId = null;
-            this.item.setValue('');
-            this.day.setValue(''); // ✅ Clear day selection after update
+            this.resetForm();
             this.fetchTodos();
           },
           error: (error) => {
@@ -146,8 +147,7 @@ export class TodoListComponent implements OnInit {
         const newTodo: Todo = { task, day: selectedDay, user: userId };
         this.todoService.createTodo(newTodo).subscribe({
           next: () => {
-            this.item.setValue('');
-            this.day.setValue(''); // ✅ Clear day selection after create
+            this.resetForm();
             this.fetchTodos();
           },
           error: (error) => {
@@ -160,11 +160,45 @@ export class TodoListComponent implements OnInit {
     }
   }
 
+  // Helper method to reset form state
+  resetForm() {
+    this.item.setValue('');
+    this.day.setValue('');
+    this.editMode = false;
+    this.selectedTodoId = null;
+  }
+
+  // Cancel edit operation
+  cancelEdit() {
+    this.resetForm();
+  }
+
   editTodo(todo: Todo) {
     this.item.setValue(todo.task);
     this.day.setValue(todo.day || ''); // ✅ Load the day when editing
     this.selectedTodoId = todo._id!;
     this.editMode = true;
+  }
+
+  // Show delete confirmation dialog
+  confirmDelete(id: string) {
+    this.todoToDeleteId = id;
+    this.showDeleteConfirm = true;
+  }
+
+  // Cancel delete operation
+  cancelDelete() {
+    this.todoToDeleteId = null;
+    this.showDeleteConfirm = false;
+  }
+
+  // Confirm and execute delete operation
+  confirmDeleteAction() {
+    if (this.todoToDeleteId) {
+      this.deleteTodo(this.todoToDeleteId);
+      this.showDeleteConfirm = false;
+      this.todoToDeleteId = null;
+    }
   }
 
   deleteTodo(id: string | undefined) {
