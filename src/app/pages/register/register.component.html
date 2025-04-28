@@ -1,0 +1,19 @@
+<div class="register-page flex items-center justify-center min-h-screen bg-gradient-to-r from-blue-500 to-blue-200">
+  <div class="bg-white p-8 rounded-lg shadow-lg w-80 text-center">
+    <h2 class="text-2xl font-semibold text-gray-800 mb-6">Register</h2>
+    <form (ngSubmit)="onRegister()" #registerForm="ngForm">
+      <input name="username" [(ngModel)]="username" placeholder="Username" required 
+        class="w-full p-3 mb-4 border border-gray-300 rounded-md text-gray-700 focus:outline-none focus:ring-2 focus:ring-blue-500 transition duration-300">
+      <input name="password" type="password" [(ngModel)]="password" placeholder="Password" required
+        class="w-full p-3 mb-6 border border-gray-300 rounded-md text-gray-700 focus:outline-none focus:ring-2 focus:ring-blue-500 transition duration-300">
+      <button type="submit" 
+        class="w-full py-3 bg-blue-500 text-white font-semibold rounded-md hover:bg-blue-600 transition duration-300">
+        Register
+      </button>
+    </form>
+    <p class="mt-4 text-sm text-gray-600">
+      Already have an account? 
+      <a href="/login" class="text-blue-500 hover:underline">Login here</a>
+    </p>
+  </div>
+</div>

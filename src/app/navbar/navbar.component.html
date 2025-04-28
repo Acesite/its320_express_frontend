@@ -1,0 +1,23 @@
+<nav class="sticky top-0 z-10 bg-gradient-to-r from-blue-700 to-blue-600 shadow-md px-6 py-3 flex justify-between items-center">
+  <div class="flex items-center">
+    <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 text-white mr-2 ml-24" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2" />
+    </svg>
+    <h1 class="text-white text-xl font-semibold tracking-wide">TaskMaster</h1>
+  </div>
+
+  <div class="flex items-center space-x-5">
+    <div class="flex items-center">
+      <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-blue-200 mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z" />
+      </svg>
+      <span class="text-blue-100 font-medium">Hello, {{ username }}</span>
+    </div>
+    <button 
+      (click)="logout()" 
+      class="bg-white text-blue-700 px-4 py-1.5 rounded-md font-medium text-sm hover:bg-blue-50 focus:outline-none focus:ring-2 focus:ring-white focus:ring-offset-2 focus:ring-offset-blue-700 transition duration-150 ease-in-out shadow-sm"
+    >
+      Logout
+    </button>
+  </div>
+</nav>
